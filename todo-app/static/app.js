@@ -1,6 +1,7 @@
 const listEl = document.getElementById("todo-list");
 const formEl = document.getElementById("todo-form");
 const titleInput = document.getElementById("todo-title");
+const priorityInput = document.getElementById("todo-priority");
 
 const api = (path, options = {}) =>
   fetch(path, {
@@ -31,13 +32,12 @@ function renderTodos(todos) {
 
 function todoRow(todo) {
   const li = document.createElement("li");
-  li.className = "todo-item" + (todo.completed ? " completed" : "");
+  li.className = "todo-item";
   li.dataset.id = String(todo.id);
 
-  const cb = document.createElement("input");
-  cb.type = "checkbox";
-  cb.checked = todo.completed;
-  cb.addEventListener("change", () => toggleTodo(todo.id, cb.checked));
+  const pri = document.createElement("span");
+  pri.className = "todo-priority";
+  pri.textContent = String(todo.priority);
 
   const span = document.createElement("span");
   span.className = "todo-title";
@@ -49,17 +49,8 @@ function todoRow(todo) {
   del.textContent = "Delete";
   del.addEventListener("click", () => deleteTodo(todo.id));
 
-  li.append(cb, span, del);
+  li.append(pri, span, del);
   return li;
-}
-
-async function toggleTodo(id, completed) {
-  const res = await api(`/api/todos/${id}`, {
-    method: "PATCH",
-    body: JSON.stringify({ completed }),
-  });
-  if (!res.ok) throw new Error("Failed to update");
-  await loadTodos();
 }
 
 async function deleteTodo(id) {
@@ -71,13 +62,16 @@ async function deleteTodo(id) {
 formEl.addEventListener("submit", async (e) => {
   e.preventDefault();
   const title = titleInput.value.trim();
+  const priority = Number.parseInt(String(priorityInput.value), 10);
   if (!title) return;
+  if (!Number.isFinite(priority) || priority < 1) return;
   const res = await api("/api/todos", {
     method: "POST",
-    body: JSON.stringify({ title }),
+    body: JSON.stringify({ title, priority }),
   });
   if (!res.ok) throw new Error("Failed to create");
   titleInput.value = "";
+  priorityInput.value = "1";
   await loadTodos();
 });
 

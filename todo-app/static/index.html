@@ -18,6 +18,16 @@
           maxlength="500"
           required
         />
+        <input
+          id="todo-priority"
+          name="priority"
+          type="number"
+          min="1"
+          step="1"
+          value="1"
+          aria-label="Priority"
+          title="Priority (lower = higher)"
+        />
         <button type="submit">Add</button>
       </form>
       <ul id="todo-list" class="todo-list"></ul>

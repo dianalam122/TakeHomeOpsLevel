@@ -5,7 +5,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 import services
-from models import Todo, TodoCreate, TodoUpdate
+from models import Todo, TodoCreate
 
 BASE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = BASE_DIR / "static"
@@ -33,14 +33,6 @@ def api_create_todo(body: TodoCreate) -> Todo:
 @app.get("/api/todos/{todo_id}", response_model=Todo)
 def api_get_todo(todo_id: int) -> Todo:
     todo = services.get_todo(todo_id)
-    if todo is None:
-        raise HTTPException(status_code=404, detail="Todo not found")
-    return todo
-
-
-@app.patch("/api/todos/{todo_id}", response_model=Todo)
-def api_update_todo(todo_id: int, body: TodoUpdate) -> Todo:
-    todo = services.update_todo(todo_id, body)
     if todo is None:
         raise HTTPException(status_code=404, detail="Todo not found")
     return todo

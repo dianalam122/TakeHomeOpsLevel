@@ -24,9 +24,8 @@ Open http://127.0.0.1:8000 in your browser.
 | Method | Path | Description |
 |--------|------|-------------|
 | GET | `/api/todos` | List all todos |
-| POST | `/api/todos` | Create (`{"title": "..."}`) |
+| POST | `/api/todos` | Create (`{"title": "...", "priority": 1}`) |
 | GET | `/api/todos/{id}` | Get one |
-| PATCH | `/api/todos/{id}` | Update (`title` and/or `completed`) |
 | DELETE | `/api/todos/{id}` | Delete |
 
 Interactive docs: http://127.0.0.1:8000/docs
