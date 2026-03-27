@@ -20,25 +20,22 @@ def index() -> FileResponse:
     return FileResponse(STATIC_DIR / "index.html")
 
 
-@app.get("/api/todos", response_model=list[Todo])
-def api_list_todos() -> list[Todo]:
+@app.get("/todos", response_model=list[Todo])
+def list_todos() -> list[Todo]:
     return services.list_todos()
 
 
-@app.post("/api/todos", response_model=Todo, status_code=201)
-def api_create_todo(body: TodoCreate) -> Todo:
-    return services.create_todo(body)
+@app.post("/todos", response_model=Todo, status_code=201)
+def create_todo(body: TodoCreate) -> Todo:
+    return services.create_todo(body.title, body.priority)
 
 
-@app.get("/api/todos/{todo_id}", response_model=Todo)
-def api_get_todo(todo_id: int) -> Todo:
-    todo = services.get_todo(todo_id)
-    if todo is None:
-        raise HTTPException(status_code=404, detail="Todo not found")
-    return todo
-
-
-@app.delete("/api/todos/{todo_id}", status_code=204)
-def api_delete_todo(todo_id: int) -> None:
+@app.delete("/todos/{todo_id}", status_code=204)
+def delete_todo(todo_id: int) -> None:
     if not services.delete_todo(todo_id):
         raise HTTPException(status_code=404, detail="Todo not found")
+
+
+@app.get("/missing-priorities", response_model=list[int])
+def missing_priorities() -> list[int]:
+    return services.get_missing_priorities()

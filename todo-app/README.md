@@ -23,10 +23,10 @@ Open http://127.0.0.1:8000 in your browser.
 
 | Method | Path | Description |
 |--------|------|-------------|
-| GET | `/api/todos` | List all todos |
-| POST | `/api/todos` | Create (`{"title": "...", "priority": 1}`) |
-| GET | `/api/todos/{id}` | Get one |
-| DELETE | `/api/todos/{id}` | Delete |
+| GET | `/todos` | List all todos (sorted by priority, then id) |
+| POST | `/todos` | Create (`{"title": "...", "priority": 1}`) |
+| DELETE | `/todos/{id}` | Delete |
+| GET | `/missing-priorities` | Gaps from 1 to max priority (empty if no todos) |
 
 Interactive docs: http://127.0.0.1:8000/docs
 

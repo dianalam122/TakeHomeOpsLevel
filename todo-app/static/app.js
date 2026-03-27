@@ -10,7 +10,7 @@ const api = (path, options = {}) =>
   });
 
 async function loadTodos() {
-  const res = await api("/api/todos");
+  const res = await api("/todos");
   if (!res.ok) throw new Error("Failed to load todos");
   const todos = await res.json();
   renderTodos(todos);
@@ -54,7 +54,7 @@ function todoRow(todo) {
 }
 
 async function deleteTodo(id) {
-  const res = await api(`/api/todos/${id}`, { method: "DELETE" });
+  const res = await api(`/todos/${id}`, { method: "DELETE" });
   if (!res.ok && res.status !== 204) throw new Error("Failed to delete");
   await loadTodos();
 }
@@ -65,7 +65,7 @@ formEl.addEventListener("submit", async (e) => {
   const priority = Number.parseInt(String(priorityInput.value), 10);
   if (!title) return;
   if (!Number.isFinite(priority) || priority < 1) return;
-  const res = await api("/api/todos", {
+  const res = await api("/todos", {
     method: "POST",
     body: JSON.stringify({ title, priority }),
   });
