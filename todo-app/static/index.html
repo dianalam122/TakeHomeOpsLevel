@@ -8,8 +8,13 @@
   </head>
   <body>
     <main class="app">
-      <h1>Todo</h1>
+      <header class="page-header">
+        <h1>Todo</h1>
+        <p class="tagline">In-memory list with priorities</p>
+      </header>
+
       <form id="todo-form" class="todo-form" autocomplete="off">
+        <label class="sr-only" for="todo-title">Title</label>
         <input
           id="todo-title"
           name="title"
@@ -18,6 +23,8 @@
           maxlength="500"
           required
         />
+
+        <label class="sr-only" for="todo-priority">Priority</label>
         <input
           id="todo-priority"
           name="priority"
@@ -25,13 +32,23 @@
           min="1"
           step="1"
           value="1"
-          aria-label="Priority"
-          title="Priority (lower = higher)"
+          title="Lower number = higher priority"
         />
+
         <button type="submit">Add</button>
       </form>
-      <ul id="todo-list" class="todo-list"></ul>
+
+      <section class="panel" aria-labelledby="missing-heading">
+        <h2 id="missing-heading" class="panel-title">Missing priorities</h2>
+        <p id="missing-priorities" class="panel-body"></p>
+      </section>
+
+      <section class="panel" aria-labelledby="list-heading">
+        <h2 id="list-heading" class="panel-title">Your tasks</h2>
+        <ul id="todo-list" class="todo-list"></ul>
+      </section>
     </main>
+
     <script src="/static/app.js" defer></script>
   </body>
 </html>
