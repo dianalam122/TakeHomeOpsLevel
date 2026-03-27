@@ -3,47 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Todo</title>
+    <title>To-Do App</title>
     <link rel="stylesheet" href="/static/style.css" />
   </head>
   <body>
     <main class="app">
       <header class="page-header">
-        <h1>Todo</h1>
-        <p class="tagline">In-memory list with priorities</p>
+        <h1>To-Do App</h1>
       </header>
 
-      <form id="todo-form" class="todo-form" autocomplete="off">
-        <label class="sr-only" for="todo-title">Title</label>
-        <input
-          id="todo-title"
-          name="title"
-          type="text"
-          placeholder="What needs doing?"
-          maxlength="500"
-          required
-        />
+      <section class="card">
+        <form id="todo-form" class="todo-form" autocomplete="off">
+          <label class="sr-only" for="todo-title">Title</label>
+          <input
+            id="todo-title"
+            name="title"
+            type="text"
+            placeholder="What needs doing?"
+            maxlength="500"
+            required
+          />
 
-        <label class="sr-only" for="todo-priority">Priority</label>
-        <input
-          id="todo-priority"
-          name="priority"
-          type="number"
-          min="1"
-          step="1"
-          value="1"
-          title="Lower number = higher priority"
-        />
+          <label class="sr-only" for="todo-priority">Priority</label>
+          <input
+            id="todo-priority"
+            name="priority"
+            type="number"
+            min="1"
+            step="1"
+            value="1"
+            title="Lower number = higher priority"
+          />
 
-        <button type="submit">Add</button>
-      </form>
+          <button type="submit" class="btn btn--primary">Add</button>
+        </form>
+      </section>
 
-      <section class="panel" aria-labelledby="missing-heading">
+      <section class="panel card" aria-labelledby="missing-heading">
         <h2 id="missing-heading" class="panel-title">Missing priorities</h2>
         <p id="missing-priorities" class="panel-body"></p>
       </section>
 
-      <section class="panel" aria-labelledby="list-heading">
+      <section class="panel card" aria-labelledby="list-heading">
         <h2 id="list-heading" class="panel-title">Your tasks</h2>
         <ul id="todo-list" class="todo-list"></ul>
       </section>

@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field, field_validator
 
 class TodoCreate(BaseModel):
     title: str = Field(max_length=500)
-    priority: int = Field(gt=0)
+    priority: int = Field(ge=1)
 
     @field_validator("title")
     @classmethod

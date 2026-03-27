@@ -5,6 +5,7 @@ _next_id: int = 1
 
 
 def _sorted_copy() -> list[Todo]:
+    # Priority ascending (lower number = higher priority), then id for stable ties.
     return sorted(_todos, key=lambda t: (t.priority, t.id))
 
 

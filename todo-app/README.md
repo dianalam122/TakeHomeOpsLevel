@@ -1,33 +1,41 @@
-# Todo (take-home)
+# Priority Todo — Take-Home
 
-A minimal FastAPI app with an in-memory todo list and a small static UI.
+A small full-stack exercise: create, list, and delete todos with integer priorities, view gaps in the priority sequence, and a plain HTML/CSS/JS frontend served by the same FastAPI app.
 
-## Setup
+## Tech stack
+
+- **Backend:** Python 3, FastAPI, Pydantic, Uvicorn  
+- **Frontend:** Static HTML, CSS, and JavaScript (no framework)
+
+## Run locally
 
 ```bash
 cd todo-app
 python3 -m venv .venv
 source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-```
-
-## Run
-
-```bash
 uvicorn main:app --reload
 ```
 
-Open http://127.0.0.1:8000 in your browser.
+Open [http://127.0.0.1:8000](http://127.0.0.1:8000). Interactive API docs: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
 
-## API
+## Assumptions
+
+| Topic | Behavior |
+|--------|----------|
+| **Storage** | In-memory only; data is lost when the server process stops. |
+| **Priorities** | Duplicate priorities are allowed. Lower numbers mean higher priority. |
+| **Missing priorities** | Computed over integers **1 … M**, where **M** is the **maximum** priority among current todos. Any integer in that range with **no** todo assigned that priority counts as missing. |
+
+## API (summary)
 
 | Method | Path | Description |
 |--------|------|-------------|
-| GET | `/todos` | List all todos (sorted by priority, then id) |
-| POST | `/todos` | Create (`{"title": "...", "priority": 1}`) |
+| GET | `/todos` | All todos, sorted by priority then id |
+| POST | `/todos` | Create (`title`, `priority`) |
 | DELETE | `/todos/{id}` | Delete |
-| GET | `/missing-priorities` | Gaps from 1 to max priority (empty if no todos) |
+| GET | `/missing-priorities` | List of missing priority integers |
 
-Interactive docs: http://127.0.0.1:8000/docs
+## Why keep it simple
 
-Data is stored in memory only and resets when the process restarts.
+The scope is intentionally narrow: a single FastAPI module for HTTP, a small service layer for in-memory logic, Pydantic for request validation, and static assets with vanilla JS. That keeps the exercise easy to read, run, and review without database setup, containers, or extra infrastructure.

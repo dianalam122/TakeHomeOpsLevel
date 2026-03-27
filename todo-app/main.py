@@ -33,7 +33,10 @@ def create_todo(body: TodoCreate) -> Todo:
 @app.delete("/todos/{todo_id}", status_code=204)
 def delete_todo(todo_id: int) -> None:
     if not services.delete_todo(todo_id):
-        raise HTTPException(status_code=404, detail="Todo not found")
+        raise HTTPException(
+            status_code=404,
+            detail=f"No todo exists with id {todo_id}.",
+        )
 
 
 @app.get("/missing-priorities", response_model=list[int])
